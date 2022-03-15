@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>poc-postmessage</title>
+</head>
+<script type="text/javascript">
+	window.addEventListener('message', event => {
+		console.log(event)
+		// window.open(event.data, '_self');
+    // IMPORTANT: check the origin of the data! 
+    if (event.origin.startsWith('https://adityanaag.me')) { 
+        // The data was sent from your site.
+        // Data sent with postMessage is stored in event.data:
+        console.log(event.data); 
+        window.open(event.data.url, '_self');
+    } else {
+        // The data was NOT sent from your site! 
+        // Be careful! Do not use it. This else branch is
+        // here just for clarity, you usually shouldn't need it.
+        return; 
+    } 
+}); 
+</script>
+<body>
+	<iframe id="gameRewardZoneIframe" title="Sodaloka 2" width="100%" src="https://adityanaag.me/" style="height: 100vh; width: 100%; border: none; padding: 0px; margin: 0px;">
+	</iframe>
+
+</body>
+</html>
+
+<!-- call window.parent.postMessage({url:'http://google.com'}, '*') from IFrame -->
